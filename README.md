@@ -1,0 +1,1 @@
+React frontend for Admin. <a href='https://github.com/hzbrz/node-ambassador'>Node-ambassador</a> will serve as the backend
