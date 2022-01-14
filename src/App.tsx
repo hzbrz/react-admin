@@ -1,34 +1,16 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Nav from './components/Nav';
+import Menu from './components/Menu';
 
 function App(): JSX.Element {
   return (
     <div className="App">
-      <header className="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <a className="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Company name</a>
-        <div className="navbar-nav">
-          <div className="nav-item text-nowrap">
-            <a className="nav-link px-3" href="#">Sign out</a>
-          </div>
-        </div>
-      </header>
-
+      <Nav />
       <div className="container-fluid">
         <div className="row">
-          <nav id="sidebarMenu" className="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-            <div className="position-sticky pt-3">
-              <ul className="nav flex-column">
-                <li className="nav-item">
-                  <a className="nav-link active" aria-current="page" href="#">
-                    <span data-feather="home"></span>
-                    Dashboard
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </nav>
-
+          <Menu />
           <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div className="table-responsive">
               <table className="table table-striped table-sm">
