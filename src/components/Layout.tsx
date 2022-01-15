@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import { User } from '../models/user';
 import Menu from './Menu';
 import Nav from './Nav';
 
@@ -9,6 +10,8 @@ import Nav from './Nav';
 const Layout = (props: any) => {
 
   const [redirect, setRediredct] = useState(false);
+  // turning this into a generic as per typesrcipt
+  const [user, setUser] = useState<User | null>(null);
 
   // this is the same as componenetDidMount() and componentDidUpdate() in a class component
     //Effect Hook lets you perform side effects in function components 
@@ -22,7 +25,8 @@ const Layout = (props: any) => {
           // we are getting the authenticated user
           const response = await axios.get('user')  // 'http://localhost:8000/api/admin/user'
 
-          console.log(response.data);
+          setUser(response.data);
+          // console.log(response.data);
         } catch (error) {
           // if the user is not authenticated redirect to login
           setRediredct(true);
@@ -38,7 +42,7 @@ const Layout = (props: any) => {
 
   return (
     <div>
-      <Nav />
+      <Nav user={user}/>
       <div className="container-fluid">
         <div className="row">
           <Menu />
