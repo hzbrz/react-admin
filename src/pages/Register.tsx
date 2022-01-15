@@ -2,7 +2,6 @@ import React, { Component, SyntheticEvent } from 'react';
 import '../Login.css';
 import axios from 'axios';
 import { Navigate } from 'react-router-dom';
-import Login from './Login';
 
 // most of the components in our app will be functional. This class component is to show that I can also do class
 class Register extends Component {
@@ -21,7 +20,8 @@ class Register extends Component {
   submit = async (e: SyntheticEvent) => {
     e.preventDefault(); // so our page does not refresh on submit and we can do api req
     
-    await axios.post('http://localhost:8000/api/admin/register', {
+    // request to node-ambassador api to register the user
+    await axios.post('register', {
       first_name: this.firstName,
       last_name: this.lastName,
       email: this.email,

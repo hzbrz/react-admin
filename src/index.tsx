@@ -3,6 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import axios from 'axios';
+
+// axios defaults set once here as to not repeat it on every request 
+axios.defaults.baseURL = 'http://localhost:8000/api/admin/';
+// have to set this config option to get the cookie from the backend which is used to authenticate
+axios.defaults.withCredentials = true;
 
 ReactDOM.render(
   <React.StrictMode>
