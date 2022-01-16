@@ -1,5 +1,6 @@
+import { Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Layout from '../components/Layout';
 import { User } from '../models/user';
 
@@ -22,29 +23,29 @@ const Users = () => {
   return (
     // everything inside Layout will get passed as child props
     <Layout> 
-      <table className="table table-striped table-sm">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell scope="col">#</TableCell>
+            <TableCell scope="col">Name</TableCell>
+            <TableCell scope="col">Email</TableCell>
+            <TableCell scope="col">Actions</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
           {/* mapping users array and showing each user */}
           {users.map(user => {
             return (
-              <tr key={user.id}>
-                <td>{user.id}</td>
-                <td>{user.email}</td>
-                <td>{user.first_name} {user.last_name}</td>
-                <td></td>
-              </tr>
+              <TableRow key={user.id}>
+                <TableCell>{user.id}</TableCell>
+                <TableCell>{user.email}</TableCell>
+                <TableCell>{user.first_name} {user.last_name}</TableCell>
+                <TableCell></TableCell>
+              </TableRow>
             );
           })}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
     </Layout>
   );
 }

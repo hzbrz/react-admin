@@ -1,4 +1,4 @@
-import React, { Component, SyntheticEvent } from 'react';
+import { Component, SyntheticEvent } from 'react';
 import '../Login.css';
 import axios from 'axios';
 import { Navigate } from 'react-router-dom';

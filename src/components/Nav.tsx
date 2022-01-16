@@ -1,6 +1,5 @@
 // tsx is the typescript extension for jsx files
 import axios from 'axios';
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { User } from '../models/user';
 
