@@ -1,4 +1,4 @@
-import { Table, TableBody, TableCell, TableFooter, TableHead, TablePagination, TableRow } from '@material-ui/core';
+import { Table, TableBody, TableCell, TableFooter, TableHead, TablePagination, TableRow, Button } from '@material-ui/core';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Layout from '../components/Layout';
@@ -36,25 +36,31 @@ const Users = () => {
         </TableHead>
         <TableBody>
           {/* mapping sliced users array (10 users) and showing each user */}
-          {users.slice(page*perPage, (page+1)*perPage).map(user => {
+          {users.slice(page * perPage, (page + 1) * perPage).map(user => {
             return (
               <TableRow key={user.id}>
                 <TableCell>{user.id}</TableCell>
                 <TableCell>{user.email}</TableCell>
                 <TableCell>{user.first_name} {user.last_name}</TableCell>
-                <TableCell></TableCell>
+                <TableCell>
+                  <Button variant='contained' color='primary'
+                    href={`users/${user.id}/links`}
+                  >View</Button>
+                </TableCell>
               </TableRow>
             );
           })}
         </TableBody>
         <TableFooter>
-          <TablePagination
-            count={users.length}
-            page={page}
-            onPageChange={(e, newPage) => setPage(newPage)}
-            rowsPerPage={perPage}
-            rowsPerPageOptions={[]}   // so we do not see the dropdown to change rows per page
-          />
+          <TableRow>
+            <TablePagination
+              count={users.length}
+              page={page}
+              onPageChange={(e, newPage) => setPage(newPage)}
+              rowsPerPage={perPage}
+              rowsPerPageOptions={[]}   // so we do not see the dropdown to change rows per page
+            />
+          </TableRow>
         </TableFooter>
       </Table>
     </Layout>
