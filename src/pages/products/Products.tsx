@@ -1,4 +1,5 @@
 import { Table, TableBody, TableCell, TableFooter, TableHead, TablePagination, TableRow, Button } from '@material-ui/core';
+import { ToggleButtonGroup } from '@material-ui/lab';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
@@ -30,6 +31,9 @@ const Products = (props: any) => {
 
   return (
     <Layout>
+      <div className="pt-3 pb-2 mb-3 border-bottom">
+        <Button href={'/products/create'} variant="contained" color="primary">Add</Button>
+      </div>
       <Table>
         <TableHead>
           <TableRow>
@@ -51,9 +55,14 @@ const Products = (props: any) => {
                 <TableCell>{product.description}</TableCell>
                 <TableCell>${product.price}.00</TableCell>
                 <TableCell>
-                  <Button variant='contained' color='secondary'
-                    onClick={() => del(product.id)}
-                  >Delete</Button>
+                  <ToggleButtonGroup>
+                    <Button variant='contained' color='primary'
+                      href={`/products/${product.id}/edit`}
+                    >Edit</Button>
+                    <Button variant='contained' color='secondary'
+                      onClick={() => del(product.id)}
+                    >Delete</Button>
+                  </ToggleButtonGroup>
                 </TableCell>
               </TableRow>
             );
