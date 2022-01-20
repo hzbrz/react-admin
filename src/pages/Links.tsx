@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import Layout from '../components/Layout';
 import { Link } from '../models/link';
 
-const Links = (props: any) => {
+const Links = () => {
   const [links, setLinks] = useState<Link[]>([]);
   const [page, setPage] = useState(0);
   const perPage = 10;
@@ -16,8 +16,8 @@ const Links = (props: any) => {
       async () => {
         const { data } = await axios.get(`users/${id}/links`);
         setLinks(data);
-        console.log(`localhost:8000/api/admin/users/${id}/links`);
-        console.log(data);
+        // console.log(`localhost:8000/api/admin/users/${id}/links`);
+        // console.log(data);
       }
     )()
   }, []);

@@ -6,7 +6,7 @@ import { Navigate, useParams } from "react-router-dom";
 
 
 // the ProductForm component will be used both for creating and updating a product
-const ProductForm = (props: any) => {
+const ProductForm = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');

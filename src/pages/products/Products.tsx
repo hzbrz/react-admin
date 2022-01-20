@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
 import { Product } from '../../models/product';
 
-const Products = (props: any) => {
+const Products = () => {
 
   const [products, setProducts] = useState<Product[]>([]);
   const [page, setPage] = useState(0);
