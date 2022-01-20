@@ -1,7 +1,10 @@
 import { Button, TextField } from "@material-ui/core";
 import axios from "axios";
-import { SyntheticEvent, useEffect, useState } from "react";
+import { Dispatch, SyntheticEvent, useEffect, useState } from "react";
+import { connect } from "react-redux";
 import Layout from "../components/Layout";
+import { User } from "../models/user";
+import { setUser } from "../redux/actions/setUserAction";
 
 const Profile = (props: any) => {
   const [first_name, setFirstName] = useState('');
@@ -11,16 +14,15 @@ const Profile = (props: any) => {
   const [password_confirm, setPasswordConfirm] = useState('');
 
   useEffect(() => {
-    (
       // prefilling data by getting the user
-      async () => {
-        const { data } = await axios.get('user');
-        setFirstName(data.first_name);
-        setLastName(data.last_name);
-        setEmail(data.email);
-      }
-    )();
-  }, []);
+      setFirstName(props.user.first_name);
+      setLastName(props.user.last_name);
+      setEmail(props.user.email);
+  }, 
+  // this optional param is for 'dependancy' upon which value/state the component will update 
+  // this is the same as componentDidUpdate(props.user)... so everytime props.user changes through infoSubmit
+  // the useEffect gets called and we see the changes immediately
+  [props.user]);
 
   const infoSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
@@ -30,6 +32,9 @@ const Profile = (props: any) => {
       last_name,
       email
     });
+
+    // dispatch an event after we update the user and update the redux store state with the updated user
+    props.setUser(data);
   }
 
   const passwordSubmit = async (e: SyntheticEvent) => {
@@ -81,4 +86,14 @@ const Profile = (props: any) => {
   );
 }
 
-export default Profile;
+// mapping the state from the redux store that we set in Layout using dispatch to props in this component
+const mapStateToProps = (state: { user: User }) => ({
+  user: state.user
+})
+
+// using this to dispatch the action and update the user / store updated state to redux store
+const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
+  setUser: (user: User) => dispatch(setUser(user))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

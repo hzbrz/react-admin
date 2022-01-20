@@ -1,5 +1,6 @@
 // tsx is the typescript extension for jsx files
 import axios from 'axios';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { User } from '../models/user';
 
@@ -25,4 +26,9 @@ const Nav = (props: { user: User | null }) => {
   );
 }
 
-export default Nav;
+const mapStateToProps = (state: { user: User }) => ({
+  user: state.user
+})
+
+// getting the user state from redux using connect
+export default connect(mapStateToProps)(Nav);

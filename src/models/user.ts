@@ -1,7 +1,8 @@
-// this is a interface that will define the User type to be used in params for components
-export interface User {
-  id: number,
-  first_name: string,
-  last_name: string,
-  email: string
+// this was an interface but changed it to a class to work with reducers, accomplishes the same thing still
+export class User {
+  // ! so we do not have to initialize them in a constructor
+  id!: number;
+  first_name!: string;
+  last_name!: string;
+  email!: string;
 }

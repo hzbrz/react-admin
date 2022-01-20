@@ -1,17 +1,17 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { Dispatch, useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { User } from '../models/user';
 import Menu from './Menu';
 import Nav from './Nav';
+import { connect } from 'react-redux';
+import { setUser } from '../redux/actions/setUserAction';
 
 // this is a component that will wrap a lot of other components and the 
 // useEffect will check if the user is authenticated
 const Layout = (props: any) => {
 
   const [redirect, setRediredct] = useState(false);
-  // turning this into a generic as per typesrcipt
-  const [user, setUser] = useState<User | null>(null);
 
   // this is the same as componenetDidMount() and componentDidUpdate() in a class component
     //Effect Hook lets you perform side effects in function components 
@@ -25,8 +25,10 @@ const Layout = (props: any) => {
           // we are getting the authenticated user
           const response = await axios.get('user')  // 'http://localhost:8000/api/admin/user'
 
-          setUser(response.data);
-          // console.log(response.data);
+          // props has access to the 2 mapState... funcs and here I am using the mapDispatchToProps' setUser
+          // function to emit the user to other components 
+          props.setUser(response.data);
+
         } catch (error) {
           // if the user is not authenticated redirect to login
           setRediredct(true);
@@ -34,7 +36,7 @@ const Layout = (props: any) => {
       }
     )();
   },
-    // passing an empty array wont call useEffect everytime the component re-renders
+    // passing an empty array so the function inside will only be called once onComponentDidMount()
     [])
 
   if (redirect)
@@ -42,7 +44,8 @@ const Layout = (props: any) => {
 
   return (
     <div>
-      <Nav user={user}/>
+      {/* will use redux to pass the state as props to Nav through mapStateToProps */}
+      <Nav /> 
       <div className="container-fluid">
         <div className="row">
           <Menu />
@@ -57,4 +60,19 @@ const Layout = (props: any) => {
   );
 }
 
-export default Layout;
+// we are getting an user from other components as state and we will just return it as props
+const mapStateToProps = (state: { user: User }) => ({
+  user: state.user
+})
+
+// we dispatch a function called setUser which dispatches the setUser action in redux
+const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
+  setUser: (user: User) => dispatch(setUser(user))
+})
+
+// connecting this component with redux
+  // connect() takes two callbacks. 
+    // 1.mapStateToProps: wants to map the events from other components and handle within the function, this 
+        // function will mainly modify or set the state in the redux store to be used by other components
+    // 2.mapDispatchToProps: dispatch and event to other components
+export default connect(mapStateToProps, mapDispatchToProps)(Layout);
